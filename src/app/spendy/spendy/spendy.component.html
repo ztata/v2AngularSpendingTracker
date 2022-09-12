@@ -1,0 +1,67 @@
+<div class="container mt-5">
+    <div class="row mb-3">
+        <div class="col text-center">
+            <h1>Spendy</h1>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col text-center">
+            <h4>A Penny Saved Is A Penny Earned</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <h3>Currently Available Funds: {{totalFunds | currency}}</h3>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col text-center">
+            <button (click)="displayTransaction()" class="btn btn-primary hover-shadow">{{buttonText}}</button>
+        </div>
+    </div>
+    <div class="row mt-3" *ngIf="displayTransactionPanel">
+        <div class="col text-center">
+            <div class="card w-50 mx-auto">
+                <div class="card-header">Add a Transaction</div>
+                <div class="card-body">
+                    <h5 class="card-title">Enter Transaction Details Below</h5>
+                    <form [formGroup]="validationForm">
+                        <!--Name-->
+                        <div class="row">
+                            <div class="col-md-6 mx-auto">
+                                <mdb-form-control>
+                                    <input mdbValidate mdbInput type="text" id="name" class="form-control"
+                                        formControlName="name" required />
+                                    <label mdbLabel class="form-label" for="name">Transaction Title</label>
+                                    <mdb-error *ngIf="name?.invalid && (name?.dirty || name?.touched)">A transaction name is
+                                        required</mdb-error>
+                                    <mdb-success *ngIf="name?.valid && (name?.dirty || name?.touched)">Looks good!
+                                    </mdb-success>
+                                </mdb-form-control>
+                            </div>
+                        </div>
+
+                        <!--Amount-->
+                        <div class="row mt-5">
+                            <div class="col-md-6 mx-auto">
+                                <mdb-form-control>
+                                    <input mdbValidate mdbInput type="number" id="amount" class="form-control"
+                                        formControlName="amount" required />
+                                    <label mdbLabel class="form-label" for="amount">Transaction Value</label>
+                                    <mdb-error *ngIf="amount?.invalid && (amount?.dirty || amount?.touched)">Transaction amount is
+                                        required</mdb-error>
+                                    <mdb-success *ngIf="amount?.valid && (amount?.dirty || amount?.touched)">Looks good!
+                                    </mdb-success>
+                                </mdb-form-control>
+                            </div>
+                        </div>
+
+
+                    </form>
+
+                </div>
+                <div class="card-footer text-muted">Click "I'm all set" above to close this panel</div>
+            </div>
+        </div>
+    </div>
+</div>>
