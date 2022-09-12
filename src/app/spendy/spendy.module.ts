@@ -4,6 +4,7 @@ import { SpendyComponent } from './spendy/spendy.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
+import { MdbRadioModule } from 'mdb-angular-ui-kit/radio';
 
 
 
@@ -16,7 +17,8 @@ import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
     ReactiveFormsModule,
     MdbValidationModule,
     FormsModule,
-    MdbFormsModule
+    MdbFormsModule,
+    MdbRadioModule
   ],
   exports: [
     SpendyComponent

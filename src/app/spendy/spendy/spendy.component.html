@@ -1,31 +1,43 @@
 <div class="container mt-5">
     <div class="row mb-3">
         <div class="col text-center">
-            <h1>Spendy</h1>
+            <h1 class="mainTitle">$pendy</h1>
         </div>
     </div>
     <div class="row mb-5">
         <div class="col text-center">
-            <h4>A Penny Saved Is A Penny Earned</h4>
+            <h4 class="subtitle">A Penny Saved Is A Penny Earned</h4>
         </div>
     </div>
     <div class="row">
         <div class="col text-center">
             <h3>Currently Available Funds: {{totalFunds | currency}}</h3>
+            <h5>Total Expenses: {{expenses | currency}}</h5>
+            <h5>Total Income: {{paychecks | currency}}</h5>
+        </div>
+    </div>
+    <div class="row mt-3" *ngIf="totalFunds < 0">
+        <div class="col text-center">
+            <h5 class="negative">Looks like you are in the red this month, looking at cutting back some expenses to have something to put away.</h5>
+        </div>
+    </div>
+    <div class="row mt-3" *ngIf="totalFunds > 0">
+        <div class="col text-center">
+            <h5> Congrats! Looks like you have something to put away at the end of the month. Keep it up!</h5>
         </div>
     </div>
     <div class="row mt-3">
         <div class="col text-center">
-            <button (click)="displayTransaction()" class="btn btn-primary hover-shadow">{{buttonText}}</button>
+            <button (click)="displayTransaction()" class="btn hover-shadow" style="background-color: #24305e; color: white;">{{buttonText}}</button>
         </div>
     </div>
     <div class="row mt-3" *ngIf="displayTransactionPanel">
         <div class="col text-center">
-            <div class="card w-50 mx-auto">
-                <div class="card-header">Add a Transaction</div>
+            <div class="card w-50 mx-auto border border-dark">
+                
                 <div class="card-body">
                     <h5 class="card-title">Enter Transaction Details Below</h5>
-                    <form [formGroup]="validationForm">
+                    <form [formGroup]="validationForm" (submit)="addTransaction()">
                         <!--Name-->
                         <div class="row">
                             <div class="col-md-6 mx-auto">
@@ -46,16 +58,35 @@
                             <div class="col-md-6 mx-auto">
                                 <mdb-form-control>
                                     <input mdbValidate mdbInput type="number" id="amount" class="form-control"
-                                        formControlName="amount" required />
+                                        formControlName="amount" min="0"  required/>
                                     <label mdbLabel class="form-label" for="amount">Transaction Value</label>
-                                    <mdb-error *ngIf="amount?.invalid && (amount?.dirty || amount?.touched)">Transaction amount is
+                                     <mdb-error *ngIf="amount?.invalid && (amount?.dirty || amount?.touched)">Transaction amount is
                                         required</mdb-error>
                                     <mdb-success *ngIf="amount?.valid && (amount?.dirty || amount?.touched)">Looks good!
-                                    </mdb-success>
+                                    </mdb-success> 
                                 </mdb-form-control>
                             </div>
                         </div>
 
+                        <!--type-->
+                        <div class="row mt-1">
+                            <div class="col-md-6 mx-auto">
+                                <div class="form-check mt-5 mb-3 ms-2 pb-1">
+                                    <input
+                                      mdbCheckbox
+                                      class="form-check-input"
+                                      type="checkbox"
+                                      value="true"
+                                      id="income"
+                                      formControlName="income"
+                                    />
+                                     <label class="form-check-label" for="income"> This transaction is income </label>
+                                  </div>                              
+                                
+                            </div>
+                        </div> 
+
+                        <button class="btn btn-primary" type="submit" [disabled]="validationForm.invalid">Submit</button>
 
                     </form>
 
@@ -64,4 +95,25 @@
             </div>
         </div>
     </div>
-</div>>
+    <div class="row mt-4" *ngIf="transactionRecord[0] !== undefined">
+        <div class="col text-center">
+            <table class="table mx-auto text-center">
+                <thead>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of transactionRecord">
+                        <td>{{item.name}}</td>
+                        <td>{{item.type}}</td>
+                        <td>{{item.amount}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+

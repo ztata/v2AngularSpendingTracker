@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import {  UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { ITransaction } from 'src/app/Interfaces/ITransaction';
 
 @Component({
   selector: 'app-spendy',
@@ -8,22 +9,25 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 })
 export class SpendyComponent implements OnInit {
 
-  constructor() { 
-    this.validationForm = new FormGroup({
-      name: new FormControl(null, Validators.required),
-      amount: new FormControl(null, Validators.required),
-      type: new FormControl(null, Validators.required),
-      date: new FormControl(null, Validators.required)
-    });
-  }
+  constructor(private builder: UntypedFormBuilder) {}
 
   totalFunds: number = 0;
+  expenses: number = 0;
+  paychecks: number = 0;
   buttonText: string = "Enter a Transaction";
   displayTransactionPanel: boolean = false;
-  validationForm: FormGroup;
+  validationForm: any;
+  transactionRecord: any = [];
+  currentTransaction: ITransaction | any;
 
 
   ngOnInit(): void {
+    this.validationForm = this.builder.group({
+      name: new UntypedFormControl('', [Validators.required]),
+      amount: new UntypedFormControl(0, [Validators.required, ]),
+      income: new UntypedFormControl(false, []),
+      type: new UntypedFormControl()
+    });
     
   }
 
@@ -37,20 +41,50 @@ export class SpendyComponent implements OnInit {
     }
   }
 
-  get name(): AbstractControl{
-    return this.validationForm.get('name')!;
+  submitForm(){
+    console.log(this.income.value)
   }
 
-  get amount(): AbstractControl{
-    return this.validationForm.get('name')!;
+  get name(){return this.validationForm.get('name')}
+  get amount(){return this.validationForm.get('amount')}
+  get income(){return this.validationForm.get('income')}
+  get type(){return this.validationForm.get('type')}
+
+
+  setType(){
+    if(this.income.value === true){
+      this.type.setValue('Income');
+    } else{
+      this.type.setValue('Expense');
+    }
   }
 
-  get type(): AbstractControl{
-    return this.validationForm.get('name')!;
+  addTransaction(){
+    console.log("form submitted")
+    console.log(this.validationForm.value);
+    if(this.income.value === true){
+      this.totalFunds += this.amount.value;
+      this.paychecks += this.amount.value;
+      this.setType();
+    }
+    else{
+      this.totalFunds -= this.amount.value;
+      this.expenses -= this.amount.value;
+      this.setType();
+    }
+
+    this.updateTransactionRecord();
+    this.validationForm.reset();
   }
 
-  get date(): AbstractControl{
-    return this.validationForm.get('name')!;
-  }
+  updateTransactionRecord(){
+    this.currentTransaction = {
+      name: this.name.value,
+      income: this.income.value,
+      amount: this.amount.value,
+      type: this.type.value
+    };
+    this.transactionRecord.push(this.currentTransaction);
+    }
 
 }

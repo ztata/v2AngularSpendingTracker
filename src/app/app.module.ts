@@ -11,6 +11,9 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MdbRadioModule } from 'mdb-angular-ui-kit/radio';
+
 
 
 
@@ -28,7 +31,10 @@ import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
     ReactiveFormsModule,
     SpendyModule,
     FormsModule,
-    MdbFormsModule
+    MdbFormsModule,
+    NoopAnimationsModule,
+    MdbRadioModule
+ 
   ],
   providers: [],
   bootstrap: [AppComponent]
