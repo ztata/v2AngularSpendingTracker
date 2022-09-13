@@ -18,7 +18,8 @@
     </div>
     <div class="row mt-3" *ngIf="totalFunds < 0">
         <div class="col text-center">
-            <h5 class="negative">Looks like you are in the red this month, looking at cutting back some expenses to have something to put away.</h5>
+            <h5 class="negative">Looks like you are in the red this month, looking at cutting back some expenses to have
+                something to put away.</h5>
         </div>
     </div>
     <div class="row mt-3" *ngIf="totalFunds > 0">
@@ -28,13 +29,14 @@
     </div>
     <div class="row mt-3">
         <div class="col text-center">
-            <button (click)="displayTransaction()" class="btn hover-shadow" style="background-color: #24305e; color: white;">{{buttonText}}</button>
+            <button (click)="displayTransaction()" class="btn hover-shadow"
+                style="background-color: #24305e; color: white;">{{buttonText}}</button>
         </div>
     </div>
     <div class="row mt-3" *ngIf="displayTransactionPanel">
         <div class="col text-center">
             <div class="card w-50 mx-auto border border-dark">
-                
+
                 <div class="card-body">
                     <h5 class="card-title">Enter Transaction Details Below</h5>
                     <form [formGroup]="validationForm" (submit)="addTransaction()">
@@ -45,7 +47,8 @@
                                     <input mdbValidate mdbInput type="text" id="name" class="form-control"
                                         formControlName="name" required />
                                     <label mdbLabel class="form-label" for="name">Transaction Title</label>
-                                    <mdb-error *ngIf="name?.invalid && (name?.dirty || name?.touched)">A transaction name is
+                                    <mdb-error *ngIf="name?.invalid && (name?.dirty || name?.touched)">A transaction
+                                        name is
                                         required</mdb-error>
                                     <mdb-success *ngIf="name?.valid && (name?.dirty || name?.touched)">Looks good!
                                     </mdb-success>
@@ -58,12 +61,13 @@
                             <div class="col-md-6 mx-auto">
                                 <mdb-form-control>
                                     <input mdbValidate mdbInput type="number" id="amount" class="form-control"
-                                        formControlName="amount" min="0"  required/>
+                                        formControlName="amount" min="0" required />
                                     <label mdbLabel class="form-label" for="amount">Transaction Value</label>
-                                     <mdb-error *ngIf="amount?.invalid && (amount?.dirty || amount?.touched)">Transaction amount is
+                                    <mdb-error *ngIf="amount?.invalid && (amount?.dirty || amount?.touched)">Transaction
+                                        amount is
                                         required</mdb-error>
                                     <mdb-success *ngIf="amount?.valid && (amount?.dirty || amount?.touched)">Looks good!
-                                    </mdb-success> 
+                                    </mdb-success>
                                 </mdb-form-control>
                             </div>
                         </div>
@@ -72,24 +76,15 @@
                         <div class="row mt-1">
                             <div class="col-md-6 mx-auto">
                                 <div class="form-check mt-5 mb-3 ms-2 pb-1">
-                                    <input
-                                      mdbCheckbox
-                                      class="form-check-input"
-                                      type="checkbox"
-                                      value="true"
-                                      id="income"
-                                      formControlName="income"
-                                    />
-                                     <label class="form-check-label" for="income"> This transaction is income </label>
-                                  </div>                              
-                                
+                                    <input mdbCheckbox class="form-check-input" type="checkbox" value="true" id="income"
+                                        formControlName="income" />
+                                    <label class="form-check-label" for="income"> This transaction is income </label>
+                                </div>
                             </div>
-                        </div> 
-
-                        <button class="btn btn-primary" type="submit" [disabled]="validationForm.invalid">Submit</button>
-
+                        </div>
+                        <button class="btn btn-primary" type="submit"
+                            [disabled]="validationForm.invalid">Submit</button>
                     </form>
-
                 </div>
                 <div class="card-footer text-muted">Click "I'm all set" above to close this panel</div>
             </div>
@@ -111,9 +106,6 @@
                     </tr>
                 </tbody>
             </table>
-
         </div>
-
     </div>
 </div>
-

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { ITransaction } from 'src/app/Interfaces/ITransaction';
 
 @Component({
@@ -9,7 +9,7 @@ import { ITransaction } from 'src/app/Interfaces/ITransaction';
 })
 export class SpendyComponent implements OnInit {
 
-  constructor(private builder: UntypedFormBuilder) {}
+  constructor(private builder: UntypedFormBuilder) { }
 
   totalFunds: number = 0;
   expenses: number = 0;
@@ -24,50 +24,50 @@ export class SpendyComponent implements OnInit {
   ngOnInit(): void {
     this.validationForm = this.builder.group({
       name: new UntypedFormControl('', [Validators.required]),
-      amount: new UntypedFormControl(0, [Validators.required, ]),
+      amount: new UntypedFormControl(0, [Validators.required,]),
       income: new UntypedFormControl(false, []),
       type: new UntypedFormControl()
     });
-    
+
   }
 
-  displayTransaction(){
+  displayTransaction() {
     this.displayTransactionPanel = !this.displayTransactionPanel;
-    if(this.displayTransactionPanel === true){
+    if (this.displayTransactionPanel === true) {
       this.buttonText = "I'm All Set!";
     }
-    else{
+    else {
       this.buttonText = "Enter a Transaction";
     }
   }
 
-  submitForm(){
+  submitForm() {
     console.log(this.income.value)
   }
 
-  get name(){return this.validationForm.get('name')}
-  get amount(){return this.validationForm.get('amount')}
-  get income(){return this.validationForm.get('income')}
-  get type(){return this.validationForm.get('type')}
+  get name() { return this.validationForm.get('name') }
+  get amount() { return this.validationForm.get('amount') }
+  get income() { return this.validationForm.get('income') }
+  get type() { return this.validationForm.get('type') }
 
 
-  setType(){
-    if(this.income.value === true){
+  setType() {
+    if (this.income.value === true) {
       this.type.setValue('Income');
-    } else{
+    } else {
       this.type.setValue('Expense');
     }
   }
 
-  addTransaction(){
+  addTransaction() {
     console.log("form submitted")
     console.log(this.validationForm.value);
-    if(this.income.value === true){
+    if (this.income.value === true) {
       this.totalFunds += this.amount.value;
       this.paychecks += this.amount.value;
       this.setType();
     }
-    else{
+    else {
       this.totalFunds -= this.amount.value;
       this.expenses -= this.amount.value;
       this.setType();
@@ -77,7 +77,7 @@ export class SpendyComponent implements OnInit {
     this.validationForm.reset();
   }
 
-  updateTransactionRecord(){
+  updateTransactionRecord() {
     this.currentTransaction = {
       name: this.name.value,
       income: this.income.value,
@@ -85,6 +85,6 @@ export class SpendyComponent implements OnInit {
       type: this.type.value
     };
     this.transactionRecord.push(this.currentTransaction);
-    }
+  }
 
 }
