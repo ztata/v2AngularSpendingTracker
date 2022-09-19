@@ -18,7 +18,7 @@
     </div>
     <div class="row mt-3" *ngIf="totalFunds < 0">
         <div class="col text-center">
-            <h5 class="negative">Looks like you are in the red this month, looking at cutting back some expenses to have
+            <h5 class="negative">Looks like you are in the red this month. See is you can cut back some expenses to have
                 something to put away.</h5>
         </div>
     </div>
@@ -102,7 +102,7 @@
                     <tr *ngFor="let item of transactionRecord">
                         <td>{{item.name}}</td>
                         <td>{{item.type}}</td>
-                        <td>{{item.amount}}</td>
+                        <td>{{item.amount | currency}}</td>
                     </tr>
                 </tbody>
             </table>
